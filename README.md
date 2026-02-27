@@ -17,9 +17,9 @@
 ```python3 -c 'import secrets, string; alphabet = string.ascii_letters + string.digits + "@%^&*(-_=+)"; print("".join(secrets.choice(alphabet) for i in range(50)))'```
 8. Use this in .env for running you app locally.
 ```ALLOWED_HOSTS=127.0.0.1,localhost```
-9. Make sure you have a newly cretaed databse and a user that has read/write access to this database, in my case, I had this for my database running locally, you can have yours.
->DB_NAME=ztm_db
->DB_USER=ztm_dev
->DB_PASSWORD=ztm@007
->DB_HOST=localhost
->DB_PORT=5432
+9. Make sure you have a newly cretaed databse and a user that has read/write access to this database, in my case, I had these creds for my database running locally, you can have yours.
+- DB_NAME=ztm_db
+- DB_USER=ztm_dev
+- DB_PASSWORD=ztm@007
+- DB_HOST=localhost
+- DB_PORT=5432
