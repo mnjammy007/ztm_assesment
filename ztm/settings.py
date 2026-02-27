@@ -20,7 +20,6 @@ env = environ.Env(
     SECRET_KEY=str,
     DEBUG_FLAG=bool,
     ALLOWED_HOSTS=list,
-    DB_ENGINE=str,
     DB_NAME=str,
     DB_USER=str,
     DB_PASSWORD=str,
@@ -93,7 +92,7 @@ WSGI_APPLICATION = "ztm.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": env.str("DB_ENGINE"),
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": env.str("DB_NAME"),
         "USER": env.str("DB_USER"),
         "PASSWORD": env.str("DB_PASSWORD"),
