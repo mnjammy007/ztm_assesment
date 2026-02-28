@@ -63,7 +63,7 @@ pytest -v
 pytest --cov=apps
 ```
 
-### Wanna have a look how RABC works? Switch to monolith_rabc branch and proceed as follows.
+### Wanna have a look how RABC works? Switch to monolith_rbac branch and proceed as follows.
 1. Apart from a super user that you created earlier, you need to have 2 more users.
 2. Visit admin panel and under user section make one of these 2 users staff by making is_staff=True.
 3. Now we have 3 types of users in our system.
