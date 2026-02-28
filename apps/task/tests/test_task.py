@@ -1,5 +1,6 @@
 import pytest
 from apps.task.models import Task
+from apps.task.views import TaskViewSet
 
 
 @pytest.mark.django_db
@@ -107,3 +108,12 @@ def test_filter_tasks_by_completed(authenticated_client):
     assert response.status_code == 200
     assert response.data["count"] == 1
     assert response.data["results"][0]["completed"] is True
+
+
+def test_swagger_fake_view_queryset(create_user):
+    view = TaskViewSet()
+    view.swagger_fake_view = True
+
+    queryset = view.get_queryset()
+
+    assert queryset.count() == 0
