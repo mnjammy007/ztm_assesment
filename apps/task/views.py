@@ -11,6 +11,9 @@ class TaskViewSet(viewsets.ModelViewSet):
     filterset_class = TaskFilter
 
     def get_queryset(self):
+        if getattr(self, "swagger_fake_view", False):
+            return Task.objects.none()
+
         return Task.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
