@@ -1,23 +1,23 @@
 from rest_framework.routers import DefaultRouter
-from apps.task.views import TaskViewSet
+from apps.user.views import UserViewSet
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
     TokenBlacklistView,
 )
 from django.urls import path, include
+from apps.user.serializers import CustomTokenObtainPairSerializer
 
 router = DefaultRouter()
-router.register(r"tasks", TaskViewSet, basename="task")
+router.register(r"users", UserViewSet, basename="user")
 urlpatterns = [
     # JWT
     path(
         "login/",
-        TokenObtainPairView.as_view(),
+        TokenObtainPairView.as_view(serializer_class=CustomTokenObtainPairSerializer),
+        name="login",
     ),
     path("logout/", TokenBlacklistView.as_view(), name="logout"),
-    path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("", include(router.urls)),
 ]
-# urlpatterns = router.urls

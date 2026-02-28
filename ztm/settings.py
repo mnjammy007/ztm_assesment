@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
+    "drf_spectacular",
     "apps.task",
     "apps.user",
 ]
@@ -137,13 +138,19 @@ SIMPLE_JWT = {
 }
 
 REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 100,
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
 }
-
+SPECTACULAR_SETTINGS = {
+    "TITLE": "ZTM API",
+    "DESCRIPTION": "Zippee Task Manager Project API Documentation",
+    "VERSION": "v1",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
@@ -161,3 +168,4 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+AUTH_USER_MODEL = "user.User"
