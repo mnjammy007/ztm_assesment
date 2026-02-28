@@ -44,7 +44,19 @@ python manage.py migrate
 ```bash
 python manage.py createsuperuser
 ```
-12. In production you need to collect staticfiles, but in developemnt mode you don't need to do so. Admin panel should now be visible at this address.
+12. In production you need to collect staticfiles, but in developemnt mode you don't need to do so. Admin panel should now be visible at this address, (use the username and password you entered during superuser creation in terminal).
 [http://127.0.0.1:8000/admin/]
 13. You can access your API documentation at this address.
 [http://127.0.0.1:8000/api/schema/swagger-ui/#/]
+
+### Commands to run tests
+- Run these commands to run the tests
+```bash
+pytest
+```
+```bash
+pytest -v
+```
+```bash
+pytest --cov=apps
+```
