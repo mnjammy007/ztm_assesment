@@ -117,3 +117,60 @@ def test_swagger_fake_view_queryset(create_user):
     queryset = view.get_queryset()
 
     assert queryset.count() == 0
+
+
+@pytest.mark.django_db
+def test_admin_can_view_all_tasks(api_client, create_user):
+    admin = create_user("admin", "admin@test.com", "pass1234")
+    admin.is_staff = True
+    admin.save()
+
+    user = create_user("user1", "u1@test.com", "pass1234")
+
+    Task.objects.create(user=user, title="T1", description="d1")
+
+    login = api_client.post(
+        "/api/login/",
+        {
+            "username": "admin",
+            "password": "pass1234",
+        },
+        format="json",
+    )
+
+    api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {login.data['access']}")
+
+    response = api_client.get("/api/tasks/")
+
+    assert response.status_code == 200
+    assert response.data["count"] == 1
+
+
+@pytest.mark.django_db
+def test_normal_user_can_update_own_task(api_client, create_user):
+    user = create_user("user1", "u1@test.com", "pass1234")
+
+    task = Task.objects.create(
+        user=user,
+        title="Initial",
+        description="Desc",
+        completed=False,
+    )
+
+    login = api_client.post(
+        "/api/login/",
+        {"username": "user1", "password": "pass1234"},
+        format="json",
+    )
+
+    api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {login.data['access']}")
+
+    response = api_client.patch(
+        f"/api/tasks/{task.id}/",
+        {"title": "Updated"},
+        format="json",
+    )
+
+    assert response.status_code == 200
+    task.refresh_from_db()
+    assert task.title == "Updated"

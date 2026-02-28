@@ -1,8 +1,9 @@
 from django.db import models
 from django.conf import settings
+from apps.shared.models import BaseModel
 
 
-class Task(models.Model):
+class Task(BaseModel):
     title = models.CharField(max_length=255)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="tasks"

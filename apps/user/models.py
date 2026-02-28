@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
+from apps.shared.models import BaseModel
 
 
 class UserManager(BaseUserManager):
@@ -25,11 +26,9 @@ class UserManager(BaseUserManager):
         return self.create_user(username, password, **extra_fields)
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(unique=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
 
     is_staff = models.BooleanField(default=False)

@@ -3,6 +3,7 @@
 1. Django
 2. ProstreSQL
 3. VS Code
+4. PGAdmin4(Optional but recommended)
 ## Steps to run the project
 1. Clone the reposirory.
 2. Open it in VSCode.
@@ -44,9 +45,10 @@ python manage.py migrate
 ```bash
 python manage.py createsuperuser
 ```
-12. In production you need to collect staticfiles, but in developemnt mode you don't need to do so. Admin panel should now be visible at this address, (use the username and password you entered during superuser creation in terminal).
+12. Add values for ACCESS_TOKEN_LIFETIME_MINS and REFRESH_TOKEN_LIFETIME_HOURS, it is recommened to have their values as 5 and 24 respectively.
+13. In production you need to collect staticfiles, but in developemnt mode you don't need to do so. Admin panel should now be visible at this address, (use the username and password you entered during superuser creation in terminal).
 [http://127.0.0.1:8000/admin/]
-13. You can access your API documentation at this address.
+14. You can access your API documentation at this address.
 [http://127.0.0.1:8000/api/schema/swagger-ui/#/]
 
 ### Commands to run tests
@@ -60,3 +62,11 @@ pytest -v
 ```bash
 pytest --cov=apps
 ```
+
+### Wanna have a look how RABC works? Switch to monolith_rabc branch and proceed as follows.
+1. Apart from a super user that you created earlier, you need to have 2 more users.
+2. Visit admin panel and under user section make one of these 2 users staff by making is_staff=True.
+3. Now we have 3 types of users in our system.
+    - The Super User - Most privilleged user, can perform any action facilitated by the system.
+    - The Admin - can read other user's data, and update only his own.
+    - The User - can raed and update only his own data.
